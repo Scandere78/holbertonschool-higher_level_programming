@@ -5,24 +5,23 @@
 
 
 class BaseGeometry:
-    """
-        Class based on geometry.
-    """
+    """ Class that defines the attributes of Geometric Shapes """
+
     def area(self):
-        """
-            Retrieve the area.
-        """
+        """ Method that defines the area of a geomtric shape """
+
         raise Exception("area() is not implemented")
 
     def integer_validator(self, name, value):
-        """
-            Validator for check the value.
+        """ Method that recieves the value property
 
-            Arguments:
-                name (str): Name of the value.
-                value (int): Value.
+        Árgs:
+            name: name of the object
+            value: value of the property
+
         """
-        if not isinstance(value, int):
-            raise TypeError("{:s} must be an integer".format(name))
+
+        if type(value) is not int:
+            raise TypeError("{} must be an integer".format(name))
         if value <= 0:
-            raise ValueError("{:s} must be greater than 0".format(name))
+            raise ValueError("{} must be greater than 0".format(name))
