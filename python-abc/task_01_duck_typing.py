@@ -1,13 +1,7 @@
-#!/usr/bin/env python3
-"""
- Class file shapes multiples
-
-"""
-
-
+#!/usr/bin/python3
+""" File class multiples shapes. """
 from abc import ABC, abstractmethod
-import math
-""" Define the abstract class Shape"""
+from math import pi
 
 
 class Shape(ABC):
@@ -17,44 +11,35 @@ class Shape(ABC):
         pass
 
     @abstractmethod
-    def area(self):
+    def perimeter(self):
         pass
-
-
-""" Define the Circle class"""
 
 
 class Circle(Shape):
 
     def __init__(self, radius):
-        self.radius = radius
+        self.__radius = radius
 
     def area(self):
-        return math.pi * self.radius ** 2
+        return pi * self.__radius ** 2
 
     def perimeter(self):
-        return 2 * math.pi * self.radius
-
-
-""" Define the Rectangle class"""
+        return 2 * pi * abs(self.__radius)
 
 
 class Rectangle(Shape):
 
     def __init__(self, width, height):
-        self.width = width
-        self.height = height
+        self.__width = width
+        self.__height = height
 
     def area(self):
-        return self.width * self.height
+        return self.__width * self.__height
 
     def perimeter(self):
-        return 2 * (self.width + self.height)
-
-
-""" Define the shape_info function """
+        return (self.__width + self.__height) * 2
 
 
 def shape_info(shape):
-    print(f"Area: {shape.area()}")
-    print(f"Perimeter: {shape.perimeter()}")
+    print("Area:", shape.area())
+    print("Perimeter:", shape.perimeter())
