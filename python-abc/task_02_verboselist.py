@@ -1,27 +1,19 @@
 #!/usr/bin/python3
 
-class VerbodeList(list):
 
-    def append(self, item):
-        super().append(item)
-        print(f"Added {item} to the list.")
+class VerboseList(list):
+    def append(self, el):
+        print(f"Added [{el}] to the list.")
+        return super().append(el)
 
-    def extend(self, iterable):
-        count = len(iterable)
-        super().extend(iterable)
-        print(f"Extended the list with {count} items.")
+    def extend(self, els):
+        print(f"Extended the list with [{len(els)}] items.")
+        return super().extend(els)
 
-    def remove(self, item):
-        if item in self:
-            print(f"Removed {item} from the list.")
-            super().remove(item)
-        else:
-            print(f"Item {item} not found in the list.")
+    def remove(self, el):
+        print(f"Removed [{el}] from the list.")
+        return super().remove(el)
 
     def pop(self, index=-1):
-        if index < len(self):
-            item = self[index]
-            super().pop(index)
-            print(f"Popped {item} from the list.")
-        else:
-            print(f"Index {index} out of range. Cannot pop from the list.")
+        print(f"Popped [{self[index]}] from the list.")
+        return super().pop(index)
