@@ -5,11 +5,12 @@
 
 
 class Student:
-    """Class of a student. """
+    """ Class of a student. """
 
     def __init__(self, first_name, last_name, age):
         """
-        Arguments:
+            Initialization of a student.
+            Arguments:
                 first_name (str): First name of the student.
                 last_name (str): Last name of the student.
                 age (int): Age of the student.
@@ -19,8 +20,18 @@ class Student:
         self.age = age
 
     def to_json(self, attrs=None):
-        if isinstance(attrs, list) and
-        all(isinstance(attr, str) for attr in attrs):
-            return {attr: getattr(self, attr)
-                    for attr in attrs if hasattr(self, attr)}
-        return self.__dict__
+        """
+            Get the json format of the Student class.
+            Arguments:
+                attrs (list[str], optional): List to filter.
+        """
+        _dict = {}
+        _original_dict = self.__dict__
+        if attrs is None:
+            _dict = _original_dict
+        else:
+            for attr in attrs:
+                value = _original_dict.get(attr, None)
+                if value:
+                    _dict[attr] = value
+        return _dict
