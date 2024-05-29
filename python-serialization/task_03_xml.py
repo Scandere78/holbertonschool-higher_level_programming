@@ -1,23 +1,18 @@
 #!/usr/bin/python3
-
 import xml.etree.ElementTree as ET
 
 
 def serialize_to_xml(dictionary, filename):
-
-    root = ET.Element('data')
-    for key, val in dictionary.items():
-        child = ET.Element(root, key)
+    root = ET.Element("data")
+    for key, value in dictionary.items():
+        child = ET.SubElement(root, key)
         child.text = value
-        root.append(child)
-
     tree = ET.ElementTree(root)
-    tree.write(filename, encoding='utf-8', xml_declaration=True)
+    tree.write(filename)
 
 
 def deserialize_from_xml(filename):
-
-    tree = ET.parse(filname)
+    tree = ET.parse(filename)
     root = tree.getroot()
 
     _dict = {}
