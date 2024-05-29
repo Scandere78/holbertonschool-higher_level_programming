@@ -19,7 +19,7 @@ def serialize_to_xml(dictionary, filename):
 
     tree = ET.parse(filname)
     root = tree.getroot()
-    
+
     if root.tag != 'data':
         raise ValueError("Invalid XML format: root element is not <data>")
     return xml_to_dict(root)
