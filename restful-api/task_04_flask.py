@@ -1,41 +1,93 @@
-.venv/bin/activate
-from flask import Flask, jsonify
+#!/usr/bin/python3
+"""
+    Route flask API.
+"""
+from flask import Flask, jsonify, request
 import json
-from flask import request
 
 
 app = Flask(__name__)
-users = {"jane": {"name": "Jane", "age": 28, "city": "Los Angeles"}}
+users = {}
 
 
 @app.route('/')
 def hello():
+    """
+        Root route of the Flask API.
+
+        Returns:
+            str: Welcome message.
+    """
     return 'Welcome to the Flask API!'
 
 
 @app.route('/data')
 def data():
+    """
+        Retrieve list of usernames.
+
+        Returns:
+            List of usernames.
+    """
     return jsonify(list(users.keys()))
 
 
 @app.route('/status')
 def status():
-    return 'OK'
+    """
+        Retrieve the status of the API.
+
+        Returns:
+            str: Message "OK".
+    """
+    return "OK"
 
 
 @app.route('/users/<username>')
-def show_user(username):
-    return jsonify(users[username])
+def user(username):
+    """
+        Retrieve user information based from the username.
+
+        Args:
+            username: Username to retrieve.
+
+        Returns:
+            Data of the user.
+
+            If not exist, error 404.
+    """
+    user = users.get(username)
+    if user:
+        return jsonify(user)
+    return jsonify({"error": "User not found"}), 404
 
 
 @app.route('/add_user', methods=['POST'])
 def add_user():
-    data = request.get_json()
-    username = data['username']
-    users[username] = data
+    """
+        Add a user to the API.
+
+        Returns:
+            Data of the new user, with message of confirmation.
+
+            If error, error message with error 400.
+    """
+    new_user = request.get_json()
+    username = new_user.get("username")
+    if not username:
+        return jsonify({"error": "Username required"}), 400
+    if username in users:
+        return jsonify({"error": "User already exists"}), 400
+
+    users[username] = {
+        "username": username,
+        "name": new_user.get("name"),
+        "age": new_user.get("age"),
+        "city": new_user.get("city")
+    }
     return jsonify({
         "message": "User added",
-        "user": data
+        "user": new_user
     }), 201
 
 

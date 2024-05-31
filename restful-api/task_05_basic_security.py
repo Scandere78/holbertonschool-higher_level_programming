@@ -61,7 +61,7 @@ def login():
                 "access_token": access_token
             })
     return jsonify({
-        "error": "Invalid credentials"
+        "error": "401 Unauthorized"
     }), 401
 
 
@@ -77,7 +77,7 @@ def admin_only():
     user = get_jwt_identity()
     if user['role'] != "admin":
         return jsonify({
-            "error": "Permission denied"
+            "error": "403 Forbidden"
         }), 403
     return "Admin Access: Granted"
 
