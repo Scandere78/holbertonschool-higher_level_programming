@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+.venv/bin/activate
 from flask import Flask, jsonify
 import json
 from flask import request
