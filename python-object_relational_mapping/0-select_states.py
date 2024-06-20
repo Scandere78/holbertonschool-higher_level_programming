@@ -1,28 +1,33 @@
 #!/usr/bin/python3
+
 import MySQLdb
 import sys
-if _name_ == "_main_":
 
-    mysql_username = sys.argv[1]
-    mysql_password = sys.argv[2]
-    database_name = sys.argv[3]
+def connectDb(user, password,db):
+    """
+        script that lists all states from the database hbtn_0e_0_usa
+    """
 
-db = MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user="root",
-        passwd="root",
-        db="my_db",
-        charset="utf8")
+    conn = MySQLdb.connect(                                                                                                 host="localhost",                                                                                               port=3306,
+            user=user,                                                                            
+            passwd=password,                                                                                                db=db,
+            charset="utf8")
+    
+    return conn 
 
-cursor = db.cursor()
 
-cursor.execute("SELECT * FROM states ORDER BY id ASC")
+if __name__ == "__main__":
 
-rows = cursor.fetchall()
+    user = sys.argv[1]
+    password = sys.argv[2]
+    db = sys.argv[3]
 
-for row in rows:
-    print(row)
+    conn = connectDb(user, password, db)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM states ORDER BY id ASC")
+    query_rows = cursor.fetchall()
+    for row in query_rows:
+        print(row)
 
-cursor.close()
-db.close()
+    cursor.close()
+    conn.close()
