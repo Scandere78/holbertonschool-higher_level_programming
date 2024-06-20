@@ -1,42 +1,35 @@
 #!/usr/bin/python3
-"""
-    Script that lists all states from the database.
-"""
-import MySQLdb
+import mysql.connector
 import sys
 
-
-def connectDb(user, password, db):
-    """
-        Get connection with the database.
-        Args:
-            user (str): Username of the user.
-            password (str): Password of the user.
-            db (str): Database to retrieve.
-        Return:
-            Connection database.
-    """
-    conn = MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user=user,
-        passwd=password,
-        db=db,
-        charset="utf8"
-    )
-    return conn
-
-
 if __name__ == "__main__":
-    user = sys.argv[1]
-    password = sys.argv[2]
-    db = sys.argv[3]
-
-    conn = connectDb(user, password, db)
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC ")
-    query_rows = cur.fetchall()
-    for row in query_rows:
+    # Récupérer les arguments de la ligne de commande
+    mysql_username = sys.argv[1]
+    mysql_password = sys.argv[2]
+    database_name = sys.argv[3]
+    
+    # Connexion à la base de données MySQL
+    db = mysql.connector.connect(
+        host="localhost",
+        user=mysql_username,
+        passwd=mysql_password,
+        database=database_name
+    )
+    
+    # Création d'un curseur pour exécuter les requêtes
+    cursor = db.cursor()
+    
+    # Exécution de la requête pour récupérer les états dont le nom commence par 'N'
+    cursor.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
+    
+    # Récupérer tous les résultats de la requête
+    rows = cursor.fetchall()
+    
+    # Affichage des résultats
+    for row in rows:
         print(row)
-    cur.close()
-    conn.close()
+    
+    # Fermeture du curseur et de la connexion à la base de données
+    cursor.close()
+    db.close()
+
