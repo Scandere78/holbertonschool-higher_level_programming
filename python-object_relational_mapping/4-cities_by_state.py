@@ -34,7 +34,16 @@ if __name__ == "__main__":
 
     conn = connectDb(user, password, db)
     cur = conn.cursor()
-    cur.execute("SELECT * FROM cities ORDER BY id ASC")
+
+    query = f"""
+        SELECT cities.id, cities.name, states.name
+        FROM cities
+        JOIN
+            states ON states.id = cities.state_id
+        ORDER BY cities.id ASC
+    """
+    cur.execute(query)
+
     query_rows = cur.fetchall()
     for row in query_rows:
         print(row)

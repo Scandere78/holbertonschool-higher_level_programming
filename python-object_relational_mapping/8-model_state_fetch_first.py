@@ -21,5 +21,5 @@ if __name__ == "__main__":
 
     session = Session(engine)
     q = session.query(State)
-    for state in q.all():
-        print("{:d}: {:s}".format(state.id, state.name))
+    state = q.first()
+    print("{:d}: {:s}".format(state.id, state.name))
