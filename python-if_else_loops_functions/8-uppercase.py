@@ -1,9 +1,9 @@
-#!/usr/bin/env
+#!/usr/bin/python3
 def uppercase(str):
-    for i in range (len(str)):
+    for i in range(len(str)):
         s = str[i]
-        uppercase = ord(s)
-        if uppercase >= 97 and unicode <= 122:
-            s = chr(uppercase - 32)
+        unicode = ord(s)
+        if unicode >= 97 and unicode <= 122:
+            s = chr(unicode - 32)
         print("{:s}".format(s), end="")
     print("")
