@@ -8,9 +8,9 @@ if __name__ == "__main__":
     if num_args == 0:
         print("Number of argument(s): 0.")
     elif num_args == 1:
-        print(f"Number of argument(s): 1 argument:")
+        print(f"1 argument:")
     else:
-        print(f"Number of argument(s): {num_args} arguments:")
+        print(f"{num_args} arguments:")
 
     for i, arg in enumerate(argv, start=1):
         print(f"{i}: {arg}")
