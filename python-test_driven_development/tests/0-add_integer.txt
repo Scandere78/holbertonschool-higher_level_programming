@@ -1,0 +1,52 @@
+The ``0-add_integer`` module
+
+Test Valide
+===========
+    >>> add_integer = __import__('0-add_integer').add_integer
+	
+    >>> add_integer(1, 2)
+    3
+
+    >>> add_integer(1.2, 1.2)
+	2
+
+    >>> add_integer(2)
+	100
+
+    >>> add_integer(100.3, -2)
+	98
+
+Test No Valide (String)
+=======================
+    >>> add_integer = __import__('0-add_integer').add_integer
+
+    >>> add_integer(je m'apelle scandere)
+    ...
+    add_integer(je m'apelle scandere)
+    SyntaxError: unterminated string literal (detected at line 1)
+
+    >>> add_integer(test, 78)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'test' is not defined
+
+    >>> add_integer(caca, 2)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'caca' is not defined
+
+    TEST NON VALID float
+    ====================
+
+    >>> add_integer(float('inf'), 5)
+    Traceback (most recent call last):
+    ...
+    a = int(a)
+    OverflowError: cannot convert float infinity to integer
+
+    >>> add_integer(float('nan'), 5)
+    Traceback (most recent call last):
+    ...
+    a = int(a)
+    ValueError: cannot convert float NaN to integer
+
