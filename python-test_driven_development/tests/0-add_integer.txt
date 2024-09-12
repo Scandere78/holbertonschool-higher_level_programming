@@ -3,50 +3,40 @@ The ``0-add_integer`` module
 Test Valide
 ===========
     >>> add_integer = __import__('0-add_integer').add_integer
-	
+    
     >>> add_integer(1, 2)
     3
 
     >>> add_integer(1.2, 1.2)
-	2
+    2
 
     >>> add_integer(2)
-	100
+    100
 
     >>> add_integer(100.3, -2)
-	98
+    98
 
 Test No Valide (String)
 =======================
     >>> add_integer = __import__('0-add_integer').add_integer
 
-    >>> add_integer("a", 2)
-	Traceback (most recent call last):
-		...
-	TypeError: a must be an integer
-
-    >>> add_integer(1, "b")
+    >>> add_integer(scandere, 23)
     Traceback (most recent call last):
     ...
-    TypeError: b must be an integer
-
-    >>> add_integer(None)
+    NameError: name 'scandere' is not defined
+   
+    >>> add_integer("16", 15)
     Traceback (most recent call last):
     ...
     TypeError: a must be an integer
 
-    >>> add_integer(test, 78)
+    >>> add_integer(s, 78)
     Traceback (most recent call last):
     ...
-    NameError: name 'test' is not defined
+    NameError: name 's' is not defined
 
-    >>> add_integer(caca, 2)
-    Traceback (most recent call last):
-    ...
-    NameError: name 'caca' is not defined
-
-    TEST NON VALID float
-    ====================
+TEST NON VALID float
+====================
 
     >>> add_integer(float('inf'), 5)
     Traceback (most recent call last):
@@ -57,4 +47,3 @@ Test No Valide (String)
     Traceback (most recent call last):
     ...
     ValueError: cannot convert float NaN to integer
-

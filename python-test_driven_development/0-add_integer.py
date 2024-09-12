@@ -6,7 +6,8 @@ This function adds two numbers.
 
 def add_integer(a, b=98):
     """
-    Function that adds two numbers, a and b.
+    Adds two integers.
+    
     - a must be an integer or a float.
     - b must be an integer or a float (default value is b = 98).
     - If a or b is a float, it will be cast to an integer.
@@ -21,4 +22,6 @@ def add_integer(a, b=98):
     a = int(a)
     b = int(b)
 
-    return int(a) + int(b)
+    return a + b
+
+
