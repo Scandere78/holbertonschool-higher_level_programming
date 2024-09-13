@@ -1,28 +1,20 @@
 #!/usr/bin/python3
-"""
- This function that prints a text with 2 new lines
- after each of these characters: ., ? and :
-"""
-
-
 def text_indentation(text):
-    """
-    Return: the result of the text
-    """
-
     if not isinstance(text, str):
         raise TypeError("text must be a string")
+    
+    special_chars = {'.', '?', ':'}
+    result = ""
+    i = 0
 
-    skip_next = False
-    for idx, i in enumerate(text):
-        if skip_next and i == ' ':
-            skip_next = False
+    while i < len(text):
+        result += text[i]
+        if text[i] in special_chars:
+            result += "\n\n"
+            i += 1
+            while i < len(text) and text[i] == ' ':
+                i += 1
             continue
-        elif skip_next:
-            skip_next = False  # Do not skip valid characters like letters
-        if i in [".", ":", "?", "!"]:
-            print(i, end="\n")
-            print()
-            skip_next = True
-        else:
-            print(i, end="")
+        i += 1
+    
+    print(result.strip())
