@@ -15,11 +15,11 @@ def text_indentation(text):
 
     skip_next = False
     for idx, i in enumerate(text):
-        if skip_next:
+        if skip_next and i == ' ':
             skip_next = False
             continue
         elif skip_next:
-            skip_next = False
+            skip_next = False  # Do not skip valid characters like letters
         if i in [".", ":", "?", "!"]:
             print(i, end="\n")
             print()
