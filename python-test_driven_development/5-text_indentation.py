@@ -19,10 +19,11 @@ def text_indentation(text):
             skip_next = False
             continue
         elif skip_next:
-            skip_next = False  # Do not skip valid characters like letters
+            skip_next = False
         if i in [".", ":", "?", "!"]:
-            print(i, end="\n")
-            print()
+            print(i, end="\n\n")
             skip_next = True
         else:
             print(i, end="")
+
+ 
