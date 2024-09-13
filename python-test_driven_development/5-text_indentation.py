@@ -6,24 +6,23 @@
 
 
 def text_indentation(text):
+    """
+    Return: the result of the text
+    """
+
     if not isinstance(text, str):
         raise TypeError("text must be a string")
 
-    result = []
     skip_next = False
-
-    for i in text:
-        if skip_next:
-            if i == ' ':
-                continue
+    for idx, i in enumerate(text):
+        if skip_next and i == ' ':
             skip_next = False
-
+            continue
+        elif skip_next:
+            skip_next = False  # Do not skip valid characters like letters
         if i in [".", ":", "?", "!"]:
-            result.append(i)
-            result.append('\n')
-            result.append('\n')
+            print(i, end="\n")
+            print()
             skip_next = True
         else:
-            result.append(i)
-
-    print(''.join(result).strip())
+            print(i, end="")
