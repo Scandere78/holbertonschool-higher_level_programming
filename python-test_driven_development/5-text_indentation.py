@@ -18,6 +18,8 @@ def text_indentation(text):
         if skip_next:
             skip_next = False
             continue
+        elif skip_next:
+            skip_next = False
         if i in [".", ":", "?", "!"]:
             print(i, end="\n")
             print()
