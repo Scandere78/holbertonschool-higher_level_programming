@@ -6,6 +6,9 @@ class Rectangle:
     """
     class rectangle with width and height
     """
+    number_of_instances = 0
+    print_symbol = '#'
+
     def __init__(self, width=0, height=0):
         """
         Initialize a new rectangle
@@ -75,3 +78,7 @@ class Rectangle:
 
     def __repr__(self):
         return f"Rectangle({self.width}, {self.height})"
+
+    def __del__(self):
+        Rectangle.number_of_instances -= 1
+        print("Bye rectangle...")
