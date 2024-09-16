@@ -6,23 +6,26 @@
 
 
 def text_indentation(text):
-    """
-    Return: the result of the text
-    """
-
+    """Prints text with two new lines after each of these characters: '.', '?', and ':'"""
     if not isinstance(text, str):
         raise TypeError("text must be a string")
 
     skip_next = False
-    for idx, i in enumerate(text):
-        if skip_next and i == ' ':
+    result = []
+
+    for idx, char in enumerate(text):
+        if skip_next and char == ' ':
             skip_next = False
             continue
         elif skip_next:
-            skip_next = False  # Do not skip valid characters like letters
-        if i in [".", ":", "?", "!"]:
-            print(i, end="\n")
-            print()
+            skip_next = False
+        
+        if char in [".", ":", "?", "!"]:
+            result.append(char)
+            result.append('\n')
+            result.append('\n')
             skip_next = True
         else:
-            print(i, end="")
+            result.append(char)
+
+    print(''.join(result).strip())
