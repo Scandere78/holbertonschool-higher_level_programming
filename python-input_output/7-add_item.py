@@ -12,7 +12,7 @@ if __name__ == "__main__":
         _list = load_from_json_file("add_item.json")
     except FileNotFoundError:
         _list = []
-    
+
     if len(sys.argv) > 1:
         _list.extend(sys.argv[1:])
 
