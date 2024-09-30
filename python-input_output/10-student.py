@@ -35,5 +35,3 @@ class Student:
             if hasattr(self, attr):
                 json_dict[attr] = getattr(self, attr)
         return json_dict
-
-
