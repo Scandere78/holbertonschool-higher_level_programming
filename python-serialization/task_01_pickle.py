@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-
 import pickle
+
 
 class CustomObject:
     """
@@ -18,7 +18,7 @@ class CustomObject:
         print(f"name: {self.name}")
         print(f"age: {self.age}")
         print(f"is_student: {self.is_student}")
-    
+
     def serialize(self, filename):
         """
         Serialize the object to a file
