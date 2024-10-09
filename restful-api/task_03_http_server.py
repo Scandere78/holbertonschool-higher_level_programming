@@ -21,7 +21,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps(data).encode())
         
         elif self.path == '/status':
-            # Endpoint /status renvoyant un simple "OK"
+
             self.send_response(200)
             self.send_header('Content-type', 'text/html')
             self.end_headers()
