@@ -11,6 +11,7 @@ from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
+
 class State(Base):
     """State class inheriting from Base."""
     __tablename__ = 'states'
