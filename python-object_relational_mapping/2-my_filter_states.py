@@ -1,10 +1,6 @@
 #!/usr/bin/python3
-"""
-Lists all states name matches argument.
-"""
 import MySQLdb
 import sys
-
 
 if __name__ == "__main__":
     db = MySQLdb.connect(
@@ -15,10 +11,9 @@ if __name__ == "__main__":
         db=sys.argv[3]
     )
     cur = db.cursor()
-    cur.execute("SELECT * FROM STATES WHERE name = '{}'
-                ORDER BY id ASC".format(sys.argv[4]))
+    query = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(sys.argv[4])
+    cur.execute(query)
     query_rows = cur.fetchall()
-
     for row in query_rows:
         print(row)
 
