@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Lists states where name matches arg
+script that takes in arguments and displays all values in the states
 Sys.Args: username, password, db, state
 """
 import MySQLdb
@@ -19,7 +19,7 @@ if __name__ == "__main__":
     query_rows = cur.fetchall()
 
     for row in query_rows:
-        if rows[1] == sys.argv[4]:
+        if row[1] == sys.argv[4]:
             print(row)
 
     cur.close()
