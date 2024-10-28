@@ -1,9 +1,4 @@
 #!/usr/bin/python3
-
-"""
-            Lists cities
-            Args: name of state
-"""
 import MySQLdb
 import sys
 
@@ -16,17 +11,20 @@ if __name__ == "__main__":
         db=sys.argv[3]
     )
     cur = db.cursor()
-    cur.execute("SELECT cities.id, cities.name \
-                FROM cities \
-                INNER JOIN states \
-                ON cities.state_id = states.id \
-                WHERE states.name = '{}' \
-                ORDER BY cities.id ASC".format(sys.argv[4]))
-
+    query = """
+    SELECT cities.name
+    FROM cities
+    JOIN states ON cities.state_id = states.id
+    WHERE states.name = %s
+    ORDER BY cities.id ASC
+    """
+    cur.execute(query, (sys.argv[4],))
     query_rows = cur.fetchall()
 
-    for row in query_rows:
-        print(row)
+    if query_rows:
+        print(", ".join(row[0] for row in query_rows))
+    else:
+        print("")
 
     cur.close()
     db.close()
