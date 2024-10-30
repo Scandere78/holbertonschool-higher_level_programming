@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Script that prints the State object with the name passed as argument."""
+"""
+    Script that changes the name of a State object from the database.
+"""
 import sys
 from model_state import Base, State
 from sqlalchemy import (create_engine)
@@ -7,7 +9,6 @@ from sqlalchemy.orm import Session
 
 
 if __name__ == "__main__":
-    arg = sys.argv[4]
     engine = create_engine(
         'mysql+mysqldb://{}:{}@localhost/{}'.format(
             sys.argv[1],
@@ -19,9 +20,8 @@ if __name__ == "__main__":
     Base.metadata.create_all(engine)
 
     session = Session(engine)
-    q = session.query(State).where(State.name.ilike(arg))
-    state = q.first()
+    q = session.query(State).where(State.id.ilike(2))
+    state = q.one()
     if state:
-        print(state.id)
-    else:
-        print("Not found")
+        state.name = "New Mexico"
+        session.commit()

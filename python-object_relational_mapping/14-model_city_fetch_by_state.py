@@ -1,13 +1,16 @@
 #!/usr/bin/python3
-"""Script that prints the State object with the name passed as argument."""
+"""
+    Script that prints all City objects from the database.
+"""
 import sys
-from model_state import Base, State
 from sqlalchemy import (create_engine)
 from sqlalchemy.orm import Session
 
+from model_state import Base, State
+from model_city import City
+
 
 if __name__ == "__main__":
-    arg = sys.argv[4]
     engine = create_engine(
         'mysql+mysqldb://{}:{}@localhost/{}'.format(
             sys.argv[1],
@@ -19,9 +22,7 @@ if __name__ == "__main__":
     Base.metadata.create_all(engine)
 
     session = Session(engine)
-    q = session.query(State).where(State.name.ilike(arg))
-    state = q.first()
-    if state:
-        print(state.id)
-    else:
-        print("Not found")
+    cities = session.query(City, State).join(State).order_by(City.id).all()
+
+    for city, state in cities:
+        print(f"{state.name}: ({city.id}) {city.name}")

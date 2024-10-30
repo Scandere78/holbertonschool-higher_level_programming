@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Script that prints the State object with the name passed as argument."""
+"""
+    Script that deletes all State objects with a name containing the letter a.
+"""
 import sys
 from model_state import Base, State
 from sqlalchemy import (create_engine)
@@ -7,7 +9,6 @@ from sqlalchemy.orm import Session
 
 
 if __name__ == "__main__":
-    arg = sys.argv[4]
     engine = create_engine(
         'mysql+mysqldb://{}:{}@localhost/{}'.format(
             sys.argv[1],
@@ -19,9 +20,5 @@ if __name__ == "__main__":
     Base.metadata.create_all(engine)
 
     session = Session(engine)
-    q = session.query(State).where(State.name.ilike(arg))
-    state = q.first()
-    if state:
-        print(state.id)
-    else:
-        print("Not found")
+    session.query(State).where(State.name.ilike("%a%")).delete()
+    session.commit()
