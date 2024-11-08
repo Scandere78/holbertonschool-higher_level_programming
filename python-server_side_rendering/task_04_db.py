@@ -7,8 +7,7 @@ app = Flask(__name__)
 
 def read_json(file_path):
     with open(file_path, 'r') as file:
-        data = json.load(file)
-    return data
+        return json.load(file)
 
 def read_csv(file_path):
     products = []
@@ -22,17 +21,18 @@ def read_csv(file_path):
 
 def read_sqlite(db_path):
     try:
-        with sqlite3.connect(db_path) as conn:
-            cursor = conn.cursor()
-            cursor.execute('SELECT id, name, category, price FROM Products')
-            products = cursor.fetchall()
-            return [{'id': row[0], 'name': row[1], 'category': row[2], 'price': row[3]} for row in products]
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute('SELECT id, name, category, price FROM Products')
+        products = cursor.fetchall()
+        conn.close()
+        return [{'id': row[0], 'name': row[1], 'category': row[2], 'price': row[3]} for row in products]
     except sqlite3.Error as e:
         print(f"Error connecting to database: {e}")
         return []
 
 @app.route('/products')
-def show_products():
+def products():
     source = request.args.get('source')
     product_id = request.args.get('id', type=int)
 
@@ -45,15 +45,13 @@ def show_products():
         products = read_csv('products.csv')
     elif source == 'sql':
         products = read_sqlite('products.db')
-    else:
-        products = []
 
-    # Filtrer par `product_id` si fourni
+    # Filtrer par ID si fourni
     if product_id:
         products = [product for product in products if product['id'] == product_id]
         if not products:
-            return render_template('product_display.html', error='Product not found')
-        
+            return render_template('product_display.html', error_message='Product not found')
+    
     return render_template('product_display.html', products=products)
 
 if __name__ == '__main__':
