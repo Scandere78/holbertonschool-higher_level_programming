@@ -11,6 +11,7 @@ def read_json(file_path):
     return data
 
 def read_csv(file_path):
+    products = []
     with open(file_path, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
@@ -21,20 +22,19 @@ def read_csv(file_path):
 
 def read_sqlite(db_path):
     try:
-        conn = sqlite3.connect(db_path)
-        cursor = conn.cursor()
-        cursor.execute('SELECT id, name, category, price FROM Products')
-        products = cursor.fetchall()
-        conn.close()
-        return [{'id': row[0], 'name': row[1], 'category': row[2], 'price': row[3]} for row in products]
+        with sqlite3.connect(db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute('SELECT id, name, category, price FROM Products')
+            products = cursor.fetchall()
+            return [{'id': row[0], 'name': row[1], 'category': row[2], 'price': row[3]} for row in products]
     except sqlite3.Error as e:
         print(f"Error connecting to database: {e}")
         return []
 
 @app.route('/products')
-def products():
-    source = request.agrs.get('source')
-    product_id = request.agrs.get('id', type=int)
+def show_products():
+    source = request.args.get('source')
+    product_id = request.args.get('id', type=int)
 
     if source not in ['json', 'csv', 'sql']:
         return render_template('product_display.html', error='Wrong source')
@@ -45,7 +45,10 @@ def products():
         products = read_csv('products.csv')
     elif source == 'sql':
         products = read_sqlite('products.db')
+    else:
+        products = []
 
+    # Filtrer par `product_id` si fourni
     if product_id:
         products = [product for product in products if product['id'] == product_id]
         if not products:
