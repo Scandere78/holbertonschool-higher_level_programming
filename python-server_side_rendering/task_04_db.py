@@ -37,7 +37,7 @@ def show_products():
     product_id = request.args.get('id', type=int)
 
     if source not in ['json', 'csv', 'sql']:
-        return render_template('product_display.html', error='Wrong source')
+        return render_template('product_display.html', error_message='Wrong source')
     
     if source == 'json':
         products = read_json('products.json')
